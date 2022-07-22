@@ -21,18 +21,22 @@ class BracketChecker
   def valid_parentheses(str)
     pattern = { '(' => ')', '<' => '>', '[' => ']', '{' => '}' }
     stack = []
+    other_char = []
     if pattern.values.include? str.chars.first
-      return  render_response(false, str.chars.first,
-                              :match_not_opening_bracket)
+      return  render_response(false, str.chars.first, :match_not_opening_bracket)
     end
 
     str.chars do |char|
-      if pattern.keys.include? char
+      if pattern.keys.include?(char)
         stack << pattern[char]
-      else
+      elsif pattern.values.include?(char)
         return render_response(false, char, :match_not_closing_bracket) unless stack.pop == char
+      else
+        other_char << char
       end
     end
+    char_with_count = other_char.each_with_object(Hash.new(0)) { |char, same| same[char] += 1 }
+    return render_response(false) unless char_with_count.values.select(&:odd?).empty?
     return render_response(false, pattern.key(stack.pop), :different_type_of_bracket) unless stack.empty?
 
     render_response(true)

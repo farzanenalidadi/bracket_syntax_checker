@@ -17,6 +17,7 @@ describe BracketChecker do
           expect(described_class.new('[]').check).to eq([valid])
           expect(described_class.new('[<>({}){}[([])<>]]').check).to eq([valid])
           expect(described_class.new('((((((()))))))').check).to eq([valid])
+          expect(described_class.new('##').check).to eq([valid])
         end
       end
       context 'with invalid expression' do
