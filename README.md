@@ -1,4 +1,4 @@
-# log_parser_master
+# Bracket Syntax checker
 ![](public/ruby_version.svg)
 ![](public/rubocop.svg)
 ![](public/coverage.svg)
